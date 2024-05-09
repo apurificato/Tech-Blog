@@ -76,24 +76,24 @@ router.get('/user', isAuth, async (req, res) => {
     res.render('user', userObj)
 })
 
-router.get('/post-blog', isAuth, async (req, res) => {
-    let userObj = {
-        isLoggedIn: true,
-        user: req.user
-    }
-    const post = await Event.create({
-        event_name: "postBlog",
-    })
+// router.get('/post-blog', isAuth, async (req, res) => {
+//     let userObj = {
+//         isLoggedIn: true,
+//         user: req.user
+//     }
+//     const post = await Event.create({
+//         event_name: "postBlog",
+//     })
 
-    userObj.post = {
-        user_id: req.user.id,
-        username: req.user.username,
-        event_id: post.id,
-        event_name: post.event_name,
-    }
-    res.render('post-blog', userObj)
+//     userObj.post = {
+//         user_id: req.user.id,
+//         username: req.user.username,
+//         event_id: post.id,
+//         event_name: post.event_name,
+//     }
+//     res.render('post-blog', userObj)
 
-})
+// })
 
 
 router.get('/updateuser', isAuth, async (req, res) => {
