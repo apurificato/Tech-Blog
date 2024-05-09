@@ -6,7 +6,7 @@ const { engine } = require('express-handlebars')
 const session = require('express-session')
 const SequelizeStore = require("connect-session-sequelize")(session.Store)
 const store = new SequelizeStore({ db: sequelize })
-const {User,Event} = require('./models')
+const {User} = require('./models')
 
 const app = express()
 const PORT = process.env.PORT || 3333
