@@ -69,10 +69,10 @@ router.get('/user', isAuth, async (req, res) => {
         isLoggedIn: true,
         user: req.user
     }
-    const user = await User.findByPk(req.user.id)
-    const bets = await user.getUserBets(6)
+    // const user = await User.findByPk(req.user.id)
+    // const bets = await user.getUserBlogs(6)
 
-    userObj.bets = bets
+    // userObj.blogs = blogs
     res.render('user', userObj)
 })
 

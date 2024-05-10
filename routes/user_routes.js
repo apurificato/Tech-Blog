@@ -45,7 +45,7 @@ router.post('/auth/register', async (req, res) => {
 
         const user = await User.create(newUser)
         req.session.user_id = user.id
-        return res.redirect('/play')
+        return res.redirect('/')
 
     } catch (err) {
         handleError(err, res)
