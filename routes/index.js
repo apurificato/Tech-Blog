@@ -4,7 +4,7 @@ async function attachUser(req, res, next) {
     const user_id = req.session.user_id
     if (user_id) {
         const user = await User.findByPk(user_id, {
-            attributes: ['id', 'username', 'email']
+            attributes: ['id', 'username', 'password', 'email']
         })
         req.user = user.get({plain:true})
         return next()
@@ -13,7 +13,7 @@ async function attachUser(req, res, next) {
 }
 const users = require('./user_routes')
 
-router.use('/api/users',attachUser, users)
+router.use('/api/users', attachUser, users)
 
 // const events = require('./event_routes.js')
 

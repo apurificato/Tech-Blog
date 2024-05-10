@@ -1,23 +1,21 @@
 const router = require('express').Router();
 const { hash, compare } = require('bcrypt')
 
-const { User } = require('../models');
+const { User, Blog, Comment } = require('../models');
 
 async function handleError(err, res) {
     console.log(err)
-    return res.redirect('/blog')
+    return res.redirect('/')
 }
 
 router.get('/', async (req, res) => {
     try {
         const users = await User.scope('withoutPassword').findAll(
-            {
-                // include: { model: BlogPost },
-            }
+            // {
+            //     include: { model: Blog, Comment }
+            // }
         )
-
         return res.json(users)
-
     }
     catch (err) {
         handleError(err, res)
@@ -29,8 +27,9 @@ router.get('/:id', async (req, res) => {
     try {
         const user = await User.scope('withoutPassword').findByPk(id,
             {
-                // include: { model: BlogPost },
-            })
+                include: { model: Blog, Comment }
+            }
+        )
         return res.json(user)
 
     }
@@ -60,14 +59,14 @@ router.post('/auth/login', async (req, res) => {
                 username: input.username,
             }
         })
-        if (user) {
-            const is_valid = await user.validatePass(input.password)
-            if (is_valid) {
-                req.session.user_id = user.id
-                return res.redirect(req.get('referer'))
-            }
-            return res.redirect(req.get('referer'))
-        }
+    //     if (user) {
+    //         const is_valid = await user.validatePass(input.password)
+    //         if (is_valid) {
+    //             req.session.user_id = user.id
+    //             return res.redirect(req.get('referer'))
+    //         }
+    //         return res.redirect(req.get('referer'))
+    //     }
         return res.redirect(req.get('referer'))
 
     } catch (err) {
@@ -179,3 +178,87 @@ router.delete('/:id', async (req, res) => {
 });
 
 module.exports = router;
+
+
+
+
+
+// const router = require('express').Router()
+
+
+// const {User,Event,Blog} = require('../models')
+
+// async function handleError(err, res) {
+//     console.log(err)
+//     return res.json({
+//         message: 'Bad Request',
+//         error: err
+//     })
+// }
+
+// router.get('/', async (req, res) => {
+//     try {
+//         const blogs = await Event.findAll()
+//         return res.json(blogs)
+
+//     }
+//     catch (err) {
+//         handleError(err,res)
+//     }
+// })
+
+// router.get('/:id', async (req, res) => {
+//     try {
+//         let id = req.params.id
+//         const blog = await Blog.findByPk(id,
+//             {
+
+//             })
+//         return res.json(blog)
+
+//     }
+//     catch (err) {
+//         handleError(err,res)
+//     }
+// })
+
+// router.post('/', async (req, res) => {
+//     try {
+//         let newPost = req.body
+
+//         const blog = await Blog.create(newPost)
+//         return res.json(blog)
+
+//     } catch (err) {
+//         handleError(err,res)
+//     }
+// })
+
+// router.put('/:id', async (req, res) => {
+//     try {
+//         let update = req.body
+//         let id = req.params.id
+//         const blog = await Blog.findByPk(id,
+//             {
+
+//             })
+//         blog.update(update)
+//         blog.posts.map(async (postObj) => {
+//             const post = await Post.findByPk(betObj.id)
+//             const result = update.outcome
+//             await post.update({result})
+//             if(!post.resolved){
+//                 const user = await User.scope('withoutPassword').findByPk(postObj.user_id)
+//                 await user.update({blogs: newBlogs})
+
+//                 await post.update({resolved: true})
+
+//             }
+            
+//         })
+//         return res.json(event)
+
+//     } catch (err) {
+//         handleError(err,res)
+//     }
+// })
