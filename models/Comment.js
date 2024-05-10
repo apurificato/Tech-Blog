@@ -16,7 +16,7 @@ Comment.init(
         user_id: {
             type: DataTypes.INTEGER,
             references: {
-                model: 'users',
+                model: 'user',
                 key: 'id',
             },
             allowNull: false
@@ -24,16 +24,16 @@ Comment.init(
         blog_id: {
             type: DataTypes.INTEGER,
             references: {
-                model: 'blogs',
+                model: 'blog',
                 key: 'id',
             },
             allowNull: false
         },
-        comment_author: {
+        comment_text: {
             type: DataTypes.STRING,
             allowNull: false
         },
-        comment_text: {
+        comment_author: {
             type: DataTypes.STRING,
             allowNull: false
         }

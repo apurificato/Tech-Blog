@@ -29,14 +29,14 @@ router.get('/about', async (req, res) => {
     res.render('about', userObj)
 })
 
-router.get('/blog', isAuth, async (req, res) => {
-    let userObj = {
-        isLoggedIn: true,
-        user: req.user
-    }
-    res.render('blog', userObj)
+// router.get('/blog', isAuth, async (req, res) => {
+//     let userObj = {
+//         isLoggedIn: true,
+//         user: req.user
+//     }
+//     res.render('blog', userObj)
 
-})
+// })
 
 router.get('/register', async (req, res) => {
     let userObj = {

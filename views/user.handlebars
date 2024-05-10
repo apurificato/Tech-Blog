@@ -1,40 +1,43 @@
 <main class="d-flex row p-5" id="user-background">
   <h2 class="text-center pt-5">User Account Information</h2>
   <section id="user-info-display">
-    <div class="row">
-      <div class="col-sm-6">
-        <div class="card">
+    <div class="row px-5 pb-5">
+      <div class="col-md-6 pb-3">
+        <div class="card text-white bg-dark">
           <div class="card-header">
             Account
           </div>
           <div class="card-body">
-            <h5 class="card-title">Username: {{user.username}}</h5>
+            <h5 class="card-title">Username:
+              <span class="logo-color">{{user.username}}</span></h5>
             <p class="card-text">Email:
-              <span class="text-success">{{user.email}}</span></p>
-            <a href="/updateuser" class="btn btn-success">Update Account Information</a>
+              <span class="logo-secondary-color">{{user.email}}</span></p>
+            <a href="/updateuser" class="btn btn-primary">Update Account Information</a>
             <a href="/deleteuser" class="btn btn-danger">Delete Account</a>
           </div>
         </div>
       </div>
-      <div class="col-sm-6">
-        <div id="user-quote" class="card">
+      <div class="col-md-6 pb-3">
+        <div id="user-quote" class="card text-white bg-dark">
             <div class="card-header">Blog Topic Ideas</div>
             <div class="card-body">
-                <blockquote class="blockquote mb-0" id="quoteDisplay">
-                <p>Click the button below to generate suggestions for a new blog post.</p>
-                </blockquote>
-                <div class="pt-3">
-                    <button class="btn btn-success" onclick="newQuote()">Generate Topic</button>
+              <blockquote class="blockquote mb-0" id="quoteDisplay">
+                  <p>Click the button below to generate suggestions for a new blog post.</p>
+              </blockquote>
+                <div class="text-center pt-3">
+                    <button class="btn btn-primary" onclick="newQuote()">Generate Topic</button>
                 </div>
             </div>
         </div>
       </div>
-      <div class="col-12">
-        <div class="card">
+      <div class="col-12 pt-3">
+        <div class="card text-white bg-dark">
           <div class="card-header">Blog Posts</div>
           <div class="card-body">
-            <h5 class="card-title">Blog Post History for: {{user.username}}</h5>
-            <table class="table table-sm table-dark">
+            <h5 class="card-title">Blog Post History for:
+              <span class="logo-color">{{user.username}}</span>
+            </h5>
+            <table class="table table-sm table-light w-50">
               <thead>
                 <tr>
                   <th scope="col">Post Name</th>
@@ -47,10 +50,10 @@
                     <td>{{this.name}}</td>
                     {{!-- <td>{{this.date}}</td> --}}
                   </tr>
-                {{/each}}
+                {{!-- {{/each}} --}}
               </tbody>
             </table>
-            <a href="/" class="btn btn-success">Post Another Blog</a>
+            <a href="/" class="btn btn-primary">Post Another Blog</a>
           </div>
         </div>
       </div>

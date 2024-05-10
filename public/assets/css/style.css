@@ -37,6 +37,22 @@ main section {
     padding: 15px;
 }
 
+.background-hero-image {
+    background-image: url(/assets/images/tech.notes-combs-hero-image.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    /* width: 100%; */
+}
+
+.logo-color {
+    color: #7ed957 ;
+}
+
+.logo-secondary-color {
+    color: #ffc422;
+}
+
 /* #main-content {
     width: 75%;
 } */
