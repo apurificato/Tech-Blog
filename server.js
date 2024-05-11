@@ -13,17 +13,16 @@ const {Blog} = require('./models')
 const app = express()
 const PORT = process.env.PORT || 3333
 
-app.use(express.json())
-app.use(express.urlencoded({ extended: false }))
-app.use(session(
-    {
-        secret: process.env.SESSION_SECRET,
-        store,
-        resave: false,
-        saveUninitialized: true,
-        cookie: { maxAge: 1000000 }
-    }
-))
+app.use(express.urlencoded({ extended: false })) // Parse URL-encoded form data
+app.use(express.json()) // Parse JSON data
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    store,
+    resave: false,
+    saveUninitialized: true,
+    cookie: { maxAge: 1000000 }
+}))
+
 
 // GET route for every file in public
 app.use(express.static('public'))
