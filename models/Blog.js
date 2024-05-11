@@ -1,6 +1,5 @@
-const { DataTypes, Model } = require('sequelize');
-const sequelize = require('../db/client');
-const User = require('./User'); // Import the User model
+const { DataTypes, Model } = require("sequelize");
+const sequelize = require("../db/client");
 
 class Blog extends Model {}
 
@@ -10,33 +9,28 @@ Blog.init(
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
-      autoIncrement: true
+      autoIncrement: true,
     },
     title: {
-      type: DataTypes.STRING,
-      allowNull: false
+        type: DataTypes.STRING,
+        allowNull: false
     },
     content: {
-      type: DataTypes.TEXT,
-      allowNull: false
+        type: DataTypes.TEXT,
+        allowNull: false
     },
     userId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: User, // Reference the User model
-        key: 'id'
-      }
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          modelName: 'User', // Reference the User model
+          key: 'id'
+        }
     }
   },
   {
     sequelize,
-    modelName: 'Blog',
-
-    // Define associations
-    associations(models) {
-      Blog.belongsTo(models.User, { foreignKey: 'userId' });
-    }
+    modelName: "Blog",
   }
 );
 

@@ -11,17 +11,14 @@ function isAuth(req, res, next) {
 
 
 router.get('/', async (req, res) => {
-
-    let userObj = {
+    let data = {
         isLoggedIn: req.user ? true : false,
-        user: req.user
-    }
-    let blogObj = {
-        isLoggedIn: req.user ? true : false,
+        user: req.user,
         blog: req.blog
-    }
-    res.render('home', userObj, blogObj)
-})
+    };
+    res.render('home', data);
+});
+
 
 router.get('/about', async (req, res) => {
     let userObj = {
