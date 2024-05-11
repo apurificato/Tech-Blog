@@ -79,7 +79,7 @@ router.get('/deleteuser', isAuth, async (req, res) => {
         res.render('deleteuser', userObj)
 })
 
-router.get('/blog', async (req, res) => {
+router.get('/blogs', async (req, res) => {
     try {
         // Fetch all blog posts
         const blogs = await Blog.findAll();

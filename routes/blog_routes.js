@@ -1,19 +1,35 @@
 const router = require('express').Router();
-const { Blog, User } = require('../models');
+const { Blog } = require('../models');
 
 async function handleError(err, res) {
     console.log(err);
     return res.redirect('/');
 }
 
-// Create a new blog post
-router.post('/blogs', async (req, res) => {
+// // Create a new blog post
+// router.post('/api/blogs', async (req, res) => {
+//     try {
+//         const { title, content, userId } = req.body;
+//         const blog = await Blog.create({ title, content, userId });
+//         return res.json(blog);
+//     } catch (err) {
+//         handleError(err, res);
+//     }
+// });
+
+// POST route for creating a new blog post
+router.post('/', async (req, res) => {
     try {
+        // Retrieve data from request body
         const { title, content, userId } = req.body;
+        // Create new blog post
         const blog = await Blog.create({ title, content, userId });
-        return res.json(blog);
+        // Send JSON response with the created blog post
+        res.status(201).json(blog);
     } catch (err) {
-        handleError(err, res);
+        // Handle errors
+        console.error(err);
+        res.status(500).json({ error: 'Internal Server Error' });
     }
 });
 
