@@ -6,14 +6,18 @@
     font-family: sans-serif;
 }
 
-html {
-    min-height: 100vh;
+html, body {
+    height: 100%;
     width: 100%
 }
-body {
+
+main {
+    min-height: 100%;
+}
+/* body {
     min-height: 100vh;
     width: 100%;
-}
+} */
 
 /* html, body {
     min-height: 100vh;
@@ -25,24 +29,15 @@ a.nav-link:hover {
     color: #ffc422;
 }
 
-main {
-    /* padding: 0 3%; */
-    flex: 1;
-    /* display: grid;
-    grid-template-columns: 1fr 1fr; */
-    gap: 15px;
-}
-
-main section {
-    padding: 15px;
+main.hero {
+    height: 800px;
 }
 
 .background-hero-image {
     background-image: url(/assets/images/tech.notes-combs-hero-image.png);
-    background-repeat: no-repeat;
+    background-repeat:no-repeat;
     background-position: center;
     background-size: cover;
-    /* width: 100%; */
 }
 
 .logo-color {
@@ -53,10 +48,13 @@ main section {
     color: #ffc422;
 }
 
-/* #main-content {
-    width: 75%;
-} */
+/* RESPONSIVE */
 
-/* .dev-profile-pic {
-    width: 50px;
+/* About Page */
+/* @media screen and (min-width: 768px) {
+
+    .about-info-card-responsive {
+        width: 50%;
+    }
+
 } */
