@@ -1,6 +1,6 @@
 const router = require('express').Router()
 
-const { User } = require('../models')
+const { User, Blog } = require('../models')
 
 function isAuth(req, res, next) {
     if (!req.session.user_id) {
@@ -16,7 +16,11 @@ router.get('/', async (req, res) => {
         isLoggedIn: req.user ? true : false,
         user: req.user
     }
-    res.render('home', userObj)
+    let blogObj = {
+        isLoggedIn: req.user ? true : false,
+        blog: req.blog
+    }
+    res.render('home', userObj, blogObj)
 })
 
 router.get('/about', async (req, res) => {
@@ -77,6 +81,19 @@ router.get('/deleteuser', isAuth, async (req, res) => {
     }
         res.render('deleteuser', userObj)
 })
+
+router.get('/blog', async (req, res) => {
+    try {
+        // Fetch all blog posts
+        const blogs = await Blog.findAll();
+        // Render a view or send JSON response with the blog posts
+        res.render('blog', { blogs });
+    } catch (err) {
+        // Handle errors
+        console.error(err);
+        res.status(500).send('Internal Server Error');
+    }
+});
 
 router.get('/*', async (req, res) => {
     let userObj = {
