@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  {{>head}}
+
+<body>
+
+  {{#if isLoggedIn}}
+      {{> loginNav user}}
+  {{else}}
+      {{> logoutNav}}
+  {{/if}}
+ 
+  {{{ body }}}
+
+  {{>footer}}
+   
+</body>
+</html>
