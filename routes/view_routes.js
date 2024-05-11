@@ -16,7 +16,6 @@ router.get('/', async (req, res) => {
         isLoggedIn: req.user ? true : false,
         user: req.user
     }
-
     res.render('home', userObj)
 })
 
@@ -25,18 +24,8 @@ router.get('/about', async (req, res) => {
         isLoggedIn: req.user ? true : false,
         user: req.user
     }
-
     res.render('about', userObj)
 })
-
-// router.get('/blog', isAuth, async (req, res) => {
-//     let userObj = {
-//         isLoggedIn: true,
-//         user: req.user
-//     }
-//     res.render('blog', userObj)
-
-// })
 
 router.get('/register', async (req, res) => {
     let userObj = {
@@ -69,31 +58,8 @@ router.get('/user', isAuth, async (req, res) => {
         isLoggedIn: true,
         user: req.user
     }
-    // const user = await User.findByPk(req.user.id)
-    // const bets = await user.getUserBlogs(6)
-
-    // userObj.blogs = blogs
     res.render('user', userObj)
 })
-
-// router.get('/post-blog', isAuth, async (req, res) => {
-//     let userObj = {
-//         isLoggedIn: true,
-//         user: req.user
-//     }
-//     const post = await Event.create({
-//         event_name: "postBlog",
-//     })
-
-//     userObj.post = {
-//         user_id: req.user.id,
-//         username: req.user.username,
-//         event_id: post.id,
-//         event_name: post.event_name,
-//     }
-//     res.render('post-blog', userObj)
-
-// })
 
 
 router.get('/updateuser', isAuth, async (req, res) => {
@@ -109,20 +75,15 @@ router.get('/deleteuser', isAuth, async (req, res) => {
         isLoggedIn: req.user ? true : false,
         user: req.user
     }
-
         res.render('deleteuser', userObj)
-    
-
 })
+
 router.get('/*', async (req, res) => {
     let userObj = {
         isLoggedIn: req.user ? true : false,
         user: req.user
     }
-
         res.render('home', userObj)
-    
-
 })
 
 

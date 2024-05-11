@@ -11,9 +11,9 @@ async function handleError(err, res) {
 router.get('/', async (req, res) => {
     try {
         const users = await User.scope('withoutPassword').findAll(
-            // {
-            //     include: { model: Blog, Comment }
-            // }
+            {
+                include: { model: Blog }
+            }
         )
         return res.json(users)
     }
@@ -27,7 +27,7 @@ router.get('/:id', async (req, res) => {
     try {
         const user = await User.scope('withoutPassword').findByPk(id,
             {
-                include: { model: Blog, Comment }
+                include: { model: Blog }
             }
         )
         return res.json(user)
@@ -44,7 +44,7 @@ router.post('/auth/register', async (req, res) => {
 
         const user = await User.create(newUser)
         req.session.user_id = user.id
-        return res.redirect('/')
+        return res.redirect('/user')
 
     } catch (err) {
         handleError(err, res)
@@ -59,14 +59,14 @@ router.post('/auth/login', async (req, res) => {
                 username: input.username,
             }
         })
-    //     if (user) {
-    //         const is_valid = await user.validatePass(input.password)
-    //         if (is_valid) {
-    //             req.session.user_id = user.id
-    //             return res.redirect(req.get('referer'))
-    //         }
-    //         return res.redirect(req.get('referer'))
-    //     }
+        if (user) {
+            const is_valid = await user.validatePass(input.password)
+            if (is_valid) {
+                req.session.user_id = user.id
+                return res.redirect(req.get('referer'))
+            }
+            return res.redirect(req.get('referer'))
+        }
         return res.redirect(req.get('referer'))
 
     } catch (err) {
@@ -126,27 +126,6 @@ router.post('/auth/delete', async (req, res) => {
     }
 });
 
-// router.post('/auth/post-blog', async (req, res) => {
-//     try {
-//         let postRaw = req.body
-//         let id = req.session.user_id 
-//         postRaw.user_id = id       
-//         const user = await User.findByPk(id)
-//         const event = await Event.findByPk(postRaw.event_id)
-//         let newPost =parseFloat(user.posts)-postRaw.amount
-//         user.update({posts: newPost})
-//         await Post.create(postRaw)
-//         const outcome = event.post_name=='coinflip'?flip():roll()
-//         await event.postBlog(outcome)
-//         return res.redirect('/blog')
-
-//     }
-//     catch (err) {
-//         console.log(err)
-//         handleError(err, res)
-//     }
-// })
-
 router.put('/:id', async (req, res) => {
     try {
         let newUser = req.body
@@ -178,87 +157,3 @@ router.delete('/:id', async (req, res) => {
 });
 
 module.exports = router;
-
-
-
-
-
-// const router = require('express').Router()
-
-
-// const {User,Event,Blog} = require('../models')
-
-// async function handleError(err, res) {
-//     console.log(err)
-//     return res.json({
-//         message: 'Bad Request',
-//         error: err
-//     })
-// }
-
-// router.get('/', async (req, res) => {
-//     try {
-//         const blogs = await Event.findAll()
-//         return res.json(blogs)
-
-//     }
-//     catch (err) {
-//         handleError(err,res)
-//     }
-// })
-
-// router.get('/:id', async (req, res) => {
-//     try {
-//         let id = req.params.id
-//         const blog = await Blog.findByPk(id,
-//             {
-
-//             })
-//         return res.json(blog)
-
-//     }
-//     catch (err) {
-//         handleError(err,res)
-//     }
-// })
-
-// router.post('/', async (req, res) => {
-//     try {
-//         let newPost = req.body
-
-//         const blog = await Blog.create(newPost)
-//         return res.json(blog)
-
-//     } catch (err) {
-//         handleError(err,res)
-//     }
-// })
-
-// router.put('/:id', async (req, res) => {
-//     try {
-//         let update = req.body
-//         let id = req.params.id
-//         const blog = await Blog.findByPk(id,
-//             {
-
-//             })
-//         blog.update(update)
-//         blog.posts.map(async (postObj) => {
-//             const post = await Post.findByPk(betObj.id)
-//             const result = update.outcome
-//             await post.update({result})
-//             if(!post.resolved){
-//                 const user = await User.scope('withoutPassword').findByPk(postObj.user_id)
-//                 await user.update({blogs: newBlogs})
-
-//                 await post.update({resolved: true})
-
-//             }
-            
-//         })
-//         return res.json(event)
-
-//     } catch (err) {
-//         handleError(err,res)
-//     }
-// })

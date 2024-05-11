@@ -15,10 +15,6 @@ const users = require('./user_routes')
 
 router.use('/api/users', attachUser, users)
 
-// const events = require('./event_routes.js')
-
-// router.use('/api/events',attachUser, events)
-
 const views = require('./view_routes.js')
 
 router.use('/',attachUser, views)

@@ -1,23 +1,15 @@
-const User = require('./User')
-// const Blog = require('./Blog')
-// const Comment = require('./Comment')
+const sequelize = require('../db/client');
 
-// User.hasMany(Blog, {
-//     foreignKey: 'user_id'
-//   });
+// Model Imports
+const User = require('./User');
+const Blog = require('./Blog');
 
-// Blog.belongsTo(User, {
-//     foreignKey: 'blog_id'
-//   });
+// Associations between Models defined:
+(function associateModels() {
+  User.associate({ Blog });
+})();
 
-// Blog.hasMany(Comment, {
-//     foreignKey: 'comment_id'
-//   });
-
-// Comment.belongsTo(Blog, {
-//     foreignKey: 'comment_id'
-//   });
-
-module.exports = {User}
-
-// module.exports = {User, Blog, Comment}
+module.exports = {
+  User,
+  Blog
+};

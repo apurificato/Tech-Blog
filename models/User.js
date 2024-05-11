@@ -1,10 +1,14 @@
 const sequelize = require("../db/client");
 const { hash, compare } = require("bcrypt");
 const { DataTypes, Model } = require("sequelize");
-// const Blog = require('./Blog')
-// const Comment = require('./Comment')
+const Blog = require('./Blog')
 
-class User extends Model {}
+class User extends Model {
+  async validatePass(password) {
+    return await compare(password, this.password);
+  }
+}
+
 
 User.init(
   {
@@ -19,7 +23,6 @@ User.init(
       allowNull: false,
       unique: true,
     },
-
     password: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -55,52 +58,9 @@ User.init(
   }
 );
 
+// Define associations
+User.associate = (models) => {
+  User.hasMany(models.Blog, { foreignKey: 'userId' });
+};
 
 module.exports = User;
-
-
-
-// const sequelize = require('../db/client')
-// const { DataTypes, Model } = require('sequelize')
-// const Comment = require('./Comment')
-// const User = require('./User')
-
-
-// class Blog extends Model {}
-
-// Blog.init(
-//     {
-//         id: {
-//             type: DataTypes.INTEGER,
-//             allowNull: false,
-//             primaryKey: true,
-//             autoIncrement: true
-//         },
-//         blog_title: {
-//             type: DataTypes.STRING,
-//             allowNull: false
-//         },
-//         blog_text: {
-//             type: DataTypes.STRING,
-//             allowNull: false
-//         },
-//         blog_author: {
-//             type: DataTypes.STRING,
-//             allowNull: false
-//         },
-//         user_id: {
-//             type: DataTypes.INTEGER,
-//             references: {
-//                 model: 'user',
-//                 key: 'id',
-//             },
-//             allowNull: false
-//         }
-//     },
-//     {
-//         sequelize,
-//         modelName: 'blog'
-//     }
-// );
-
-// module.exports = Blog
