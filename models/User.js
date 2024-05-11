@@ -1,7 +1,6 @@
 const sequelize = require("../db/client");
 const { hash, compare } = require("bcrypt");
 const { DataTypes, Model } = require("sequelize");
-const Blog = require('./Blog')
 
 class User extends Model {
   async validatePass(password) {
@@ -49,7 +48,7 @@ User.init(
         user.password = await hash(user.password, 10);
       },
     },
-    modelName: "user",
+    modelName: "User",
     scopes: {
       withoutPassword: {
         attributes: { exclude: ["password"] },
@@ -57,10 +56,5 @@ User.init(
     },
   }
 );
-
-// Define associations
-User.associate = (models) => {
-  User.hasMany(models.Blog, { foreignKey: 'userId' });
-};
 
 module.exports = User;
