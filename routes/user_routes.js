@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { hash, compare } = require('bcrypt')
 
-const { User, Blog, Comment } = require('../models');
+const { User, Blog } = require('../models');
 
 async function handleError(err, res) {
     console.log(err)

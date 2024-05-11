@@ -14,15 +14,7 @@ html, body {
 main {
     min-height: 100%;
 }
-/* body {
-    min-height: 100vh;
-    width: 100%;
-} */
 
-/* html, body {
-    min-height: 100vh;
-    width: 100%;
-} */
 
 /* CUSTOM STYLES */
 a.nav-link:hover {
@@ -47,6 +39,7 @@ main.hero {
 .logo-secondary-color {
     color: #ffc422;
 }
+
 
 /* RESPONSIVE */
 
