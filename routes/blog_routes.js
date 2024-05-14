@@ -18,7 +18,7 @@ async function handleError(err, res) {
 // });
 
 // POST route for creating a new blog post
-router.post('/', async (req, res) => {
+router.post('/api/blogs', async (req, res) => {
     try {
         // Retrieve data from request body
         const { title, content, userId } = req.body;
