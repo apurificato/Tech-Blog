@@ -6,17 +6,6 @@ async function handleError(err, res) {
     return res.redirect('/');
 }
 
-// // Create a new blog post
-// router.post('/api/blogs', async (req, res) => {
-//     try {
-//         const { title, content, userId } = req.body;
-//         const blog = await Blog.create({ title, content, userId });
-//         return res.json(blog);
-//     } catch (err) {
-//         handleError(err, res);
-//     }
-// });
-
 // POST route for creating a new blog post
 router.post('/api/blogs', async (req, res) => {
     try {
