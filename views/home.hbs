@@ -11,12 +11,12 @@
 <section>
     <h3 class="p-5 text-center">Check Out Recent Posts to See What the Buzz is About:</h3>
     <!-- Render all blog posts -->
-{{#each blogs}}
     <div class="blog-post">
-        <h2>{{ this.title }}</h2>
-        <p>{{ this.content }}</p>
-        <p>Author: {{ this.user.username }}</p>
+        {{#each blog}}
+        <h2>Blog Title: {{this.title}}</h2>
+        <p>Blog Content: {{this.content}}</p>
+        <p>Author: {{this.user.username}}</p>
+        {{/each}}
     </div>
-{{/each}}
 
 </section>

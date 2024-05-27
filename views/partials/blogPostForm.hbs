@@ -1,5 +1,32 @@
-<form action="/api/blogs" method="POST" class="register-form px-5">
+<form action="/api/blogs" method="POST" class="register-form px-5" id="blogForm">
     <input class="text-input row mt-3 ms-1 form-control" name="title" type="text" placeholder="Enter blog title">
     <textarea class="text-input row mt-3 ms-1 form-control" name="content" type="text" placeholder="Enter blog post content/text"></textarea>
     <button class="btn btn-success row mt-3 ms-1 form-control" id="post-btn"  type="submit">Post Blog</button>
 </form>
+
+<script>
+document.getElementById('blogForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    
+    // Get form data
+    const formData = {
+        title: this.elements.title.value,
+        content: this.elements.content.value
+    };
+
+    // Send form data to server
+    fetch('/api/blogs', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Redirect to the home page after creating the blog post
+        window.location.href = '/';
+    })
+    .catch(error => console.error('Error:', error));
+});
+</script>
