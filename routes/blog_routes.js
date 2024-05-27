@@ -1,31 +1,21 @@
 const router = require('express').Router();
-const { Blog } = require('../models');
+const { Blog, User } = require('../models');
 
 async function handleError(err, res) {
     console.log(err);
     return res.redirect('/');
 }
 
-// // Create a new blog post
-// router.post('/api/blogs', async (req, res) => {
-//     try {
-//         const { title, content, userId } = req.body;
-//         const blog = await Blog.create({ title, content, userId });
-//         return res.json(blog);
-//     } catch (err) {
-//         handleError(err, res);
-//     }
-// });
-
-// POST route for creating a new blog post
 router.post('/', async (req, res) => {
     try {
-        // Retrieve data from request body
-        const { title, content, userId } = req.body;
-        // Create new blog post
-        const blog = await Blog.create({ title, content, userId });
+        let newBlog = req.body;
+        // User ID stored in the session
+        const userId = req.session.user_id;
+        newBlog.userId = userId;
+        const blog = await Blog.create(newBlog);
         // Send JSON response with the created blog post
         res.status(201).json(blog);
+        // return res.redirect('/');
     } catch (err) {
         // Handle errors
         console.error(err);
@@ -37,9 +27,12 @@ router.post('/', async (req, res) => {
 // Get all blog posts and render them on home page
 router.get('/', async (req, res) => {
     try {
-        const blogs = await Blog.findAll({ include: User });
-        // Render home page with blog posts using Handlebars template
-        res.render('home', { blogs });
+        const blogs = await Blog.findAll(
+            { 
+                include: { model: User } 
+            }
+        );
+        return res.json(blogs)
     } catch (err) {
         handleError(err, res);
     }

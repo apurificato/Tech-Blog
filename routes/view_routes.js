@@ -16,6 +16,7 @@ router.get('/', async (req, res) => {
         user: req.user,
         blog: req.blog
     };
+
     res.render('home', data);
 });
 
@@ -54,6 +55,7 @@ router.get('/logout', async (req, res) => {
     res.render('logout', userObj)
 })
 
+
 router.get('/user', isAuth, async (req, res) => {
     let userObj = {
         isLoggedIn: true,
@@ -79,17 +81,26 @@ router.get('/deleteuser', isAuth, async (req, res) => {
         res.render('deleteuser', userObj)
 })
 
+// router.get('/blogs', async (req, res) => {
+    
+//     try {
+//         // Fetch all blog posts
+//         const blogs = await Blog.findAll();
+//         // Render a view or send JSON response with the blog posts
+//         res.render('blog', { blogs });
+//     } catch (err) {
+//         // Handle errors
+//         console.error(err);
+//         res.status(500).send('Internal Server Error');
+//     }
+// });
+
 router.get('/blogs', async (req, res) => {
-    try {
-        // Fetch all blog posts
-        const blogs = await Blog.findAll();
-        // Render a view or send JSON response with the blog posts
-        res.render('blog', { blogs });
-    } catch (err) {
-        // Handle errors
-        console.error(err);
-        res.status(500).send('Internal Server Error');
+    let userObj = {
+        isLoggedIn: req.user ? true : false,
+        user: req.user
     }
+        res.render('blog', userObj);
 });
 
 router.get('/*', async (req, res) => {
