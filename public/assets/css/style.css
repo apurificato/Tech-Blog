@@ -21,6 +21,10 @@ a.nav-link:hover {
     color: #ffc422;
 }
 
+#logout-btn {
+    margin-left: 20px;
+}
+
 main.hero {
     height: 800px;
 }
