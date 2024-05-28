@@ -11,10 +11,19 @@ function isAuth(req, res, next) {
 
 
 router.get('/', async (req, res) => {
+    const blogs = await Blog.findAll({
+        include: {
+            model: User,
+            attributes: {
+                exclude: ['password']
+            }
+        }
+    });
+    // console.log(blogs[])
     let data = {
         isLoggedIn: req.user ? true : false,
         user: req.user,
-        blog: req.blog
+        blogs: blogs.map((blog)=> blog.get({plain: true}))
     };
 
     res.render('home', data);
